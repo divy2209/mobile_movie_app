@@ -12,10 +12,14 @@ export const fetchMovies = async ({ query }: {query: string}) => {
         ? `${TMDB_CONFIG.BASE_URL}/search/movie?query=${encodeURIComponent(query)}`
         : `${TMDB_CONFIG.BASE_URL}/discover/movie?sort_by=popularity.desc`;
 
+    console.log("making fetch call");
+
     const response = await fetch(endPoint, {
         method: 'GET',
         headers: TMDB_CONFIG.headers,
     });
+
+    console.log("got some response");
 
     if(!response.ok) {
         // @ts-ignore
@@ -23,5 +27,7 @@ export const fetchMovies = async ({ query }: {query: string}) => {
     }
 
     const data = await response.json();
+    console.log("returning result", data);
+
     return data.results;
 }
